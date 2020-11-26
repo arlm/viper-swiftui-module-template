@@ -4,8 +4,8 @@
 //
 //  Created by {author} on {date}.
 //
-import Foundation
-import UIKit
+
+import SwiftUI
 
 // MARK: - router
 
@@ -33,32 +33,30 @@ protocol {module}InteractorPresenterInterface: InteractorPresenterInterface {
 
 }
 
-// MARK: - view
-
-protocol {module}ViewPresenterInterface: ViewPresenterInterface {
-
-}
-
-
 // MARK: - module builder
 
 final class {module}Module: ModuleInterface {
 
     typealias View = {module}View
-    typealias Presenter = {module}Presenter
-    typealias Router = {module}Router
     typealias Interactor = {module}Interactor
+    typealias Router = {module}Router
+    typealias Presenter = {module}Presenter
 
     func build() -> UIViewController {
-        let view = View()
-        let interactor = Interactor()
         let presenter = Presenter()
+        let interactor = Interactor()
         let router = Router()
 
-        self.assemble(view: view, presenter: presenter, router: router, interactor: interactor)
+        let viewModel = {module}ViewModel()
+        let view = View(presenter: presenter, viewModel: viewModel)
+        	.environmentObject({module}Environment())
+        	
+        presenter.viewModel = viewModel
+        
+        self.assemble(presenter: presenter, router: router, interactor: interactor)
 
-        router.viewController = view
-
-        return view
+        let viewController = UIHostingController(rootView: view)
+        router.viewController = viewController
+        return viewController
     }
 }

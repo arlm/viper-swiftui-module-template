@@ -6,10 +6,11 @@
 //
 
 import Foundation
+import SwiftUI
 
 final class {module}Interactor: InteractorInterface {
-
-    weak var presenter: {module}PresenterInteractorInterface!
+    weak var presenter: {module}PresenterRouterInterface!
+    weak var viewController: UIViewController?
 }
 
 extension {module}Interactor: {module}InteractorPresenterInterface {

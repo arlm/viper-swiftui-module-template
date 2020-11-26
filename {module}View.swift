@@ -6,21 +6,21 @@
 //
 
 import Foundation
-import UIKit
+import SwiftUI
 
-final class {module}View: UIViewController, ViewInterface {
+struct {module}View: View, ViewInterface {
 
-    var presenter: {module}PresenterViewInterface!
+    var presenter: {module}Presenter!
+    @ObservedObject var viewModel: {module}ViewModel
 
-
-    override func viewDidLoad() {
-        super.viewDidLoad()
-
-        self.presenter.start()
+    var body: some View {
+        Text("SwiftUI ❤️ VIPER")
     }
 
 }
 
-extension {module}View: {module}ViewPresenterInterface {
-
+struct {module}View_Previews: PreviewProvider {
+    static var previews: some View {
+        {module}View(presenter: {module}Presenter(), viewModel: {module}ViewModel( error: false, data: {module}Data)))
+    }
 }
