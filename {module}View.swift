@@ -21,6 +21,11 @@ struct {module}View: View, ViewInterface {
 
 struct {module}View_Previews: PreviewProvider {
     static var previews: some View {
-        {module}View(presenter: {module}Presenter(), viewModel: {module}ViewModel( error: false, data: {module}Data))
+        ForEach(["iPhone SE", "iPhone XS Max"], id: \.self) {
+            deviceName in
+            {module}View(presenter: {module}Presenter(), viewModel: {module}ViewModel( error: false, data: {module}Data))
+                .previewDevice(PreviewDevice(rawValue: deviceName))
+                .previewDisplayName(deviceName)
+        }
     }
 }
